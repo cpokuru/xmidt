@@ -4,7 +4,7 @@ aker_port=16015
 mocktr181_port=16016
 
 if [[ -z "${URL}" ]]; then
-    URL="http://petasos:6400"
+    URL="http://localhost:6200"
 fi
 
 if [[ -z "${FIRMWARE}" ]]; then
@@ -60,10 +60,6 @@ if [[ -z "${MTLS_CLIENT_KEY_PATH}" ]]; then
 fi
 
 parodus --hw-model=aker-testing \
-    --ssl-cert-path=$SSL_CERT_PATH \
-    --client-cert-path=$CLIENT_CERT_PATH \
-    --mtls-client-cert-path=$MTLS_CLIENT_CERT_PATH \
-    --mtls-client-key-path=$MTLS_CLIENT_KEY_PATH \
     --hw-serial-number=$SERIAL_NUMBER \
     --hw-manufacturer=$HW_MANUFACTURER \
     --hw-mac=$CMAC \
@@ -73,9 +69,8 @@ parodus --hw-model=aker-testing \
     --partner-id=$PARTNER_ID \
     --parodus-local-url=tcp://127.0.0.1:$parodus_port \
     --webpa-ping-timeout=60 \
-    --token-server-url=$TOKEN_SERVER_URL \
     --webpa-backoff-max=2 \
-    --webpa-interface-used=eth0 \
+    --webpa-interface-used=lo \
     --webpa-url=$URL \
     --force-ipv4 &
 P1=$!
